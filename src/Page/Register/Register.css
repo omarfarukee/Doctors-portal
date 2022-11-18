@@ -1,0 +1,19 @@
+.reg-container{
+    width: 400px;
+}
+.btn-google{
+    width:100%;
+    padding-left:8%;
+    padding-right: 8%;
+    margin-bottom:10px;
+    padding-bottom: 10px;
+}
+@media only screen  and (max-width: 687px){
+    .reg-container{
+        width: 96%;
+    }
+    .account{
+        font-size: 15px;
+        margin-left:10%;
+    }
+}
