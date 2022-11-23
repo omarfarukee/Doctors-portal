@@ -1,10 +1,13 @@
 
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../Context/AuthProvider';
 
-const Booking = ({ data, date, setData }) => {
+const Booking = ({ data, date, setData, refetch }) => {
     const { name, slots } = data
-
+    const {user} = useContext(AuthContext)
     const dateTime = format(date, 'PP')
 
     const handleBooking = event =>{
@@ -24,8 +27,40 @@ const Booking = ({ data, date, setData }) => {
         
 
         }
-        console.log(booking)
-        setData(null)
+
+        fetch('http://localhost:5000/bookings', {
+            method: "POST",
+            headers:{
+                'content-type' : 'application/json'
+            }, 
+            body: JSON.stringify(booking)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if (data.acknowledged === true) {
+                setData(null)
+                //  toast.success('booking confrimed')
+                alert('booking successfull')
+                 refetch()
+                // toast('Booking confrimed', {
+                //     position: "top-right",
+                //     autoClose: 5000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: true,
+                //     draggable: true,
+                //     progress: undefined,
+                //     theme: "light",
+                //     });
+
+            }
+             else {
+                alert('you have already booked')
+             }
+        })
+
+       
     }
     return (
         <>
@@ -42,10 +77,23 @@ const Booking = ({ data, date, setData }) => {
                             slots.map(slot => <option  value={slot}>{slot}</option>)
                         }
                         </select> <br />
-                        <input name='name' type="text" placeholder="Type here" className=" mt-3 input input-bordered w-full "  required /> <br />
-                        <input name='email' type="text" placeholder="Type here" className=" mt-3 input input-bordered w-full " required /> <br />
-                        <input name='phone' type="text" placeholder="Type here" className=" mt-3 input input-bordered w-full " required /> <br />
+                        <input name='name' type="text" defaultValue={user?.displayName} disabled placeholder="Type here" className=" mt-3 input input-bordered w-full "  required /> <br />
+                        <input name='email' defaultValue={user?.email} disabled type="email" placeholder="email" className=" mt-3 input input-bordered w-full " required /> <br />
+                        <input name='phone' type="text" placeholder="phone" className=" mt-3 input input-bordered w-full " required /> <br />
                         <button className="btn btn-primary mt-3 w-full">Button</button>
+                        <ToastContainer></ToastContainer>
+                        {/* <ToastContainer
+                            position="top-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                            /> */}
                     </form>
                 </div>
             </div>

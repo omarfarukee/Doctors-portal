@@ -1,3 +1,4 @@
+import { isDisabled } from '@testing-library/user-event/dist/utils';
 import React from 'react';
 
 const ServiceCard = ({ service, setData }) => {
@@ -11,7 +12,7 @@ const ServiceCard = ({ service, setData }) => {
                     <p>{slots?.length > 0 ? slots.length: 'no'} {slots.length > 1 ? 'spaces' : 'space'} available</p>
                     <div className="card-actions justify-end">
                   
-                        <label onClick={() => setData(service)} htmlFor="booking-modal" className="btn btn-primary">Book now</label>
+                    <label  onClick={() => setData(service)} htmlFor="booking-modal" className="btn btn-primary" >Book now</label>  
                     </div>
                 </div>
             </div>
