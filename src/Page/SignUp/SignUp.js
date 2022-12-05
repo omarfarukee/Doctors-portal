@@ -1,7 +1,7 @@
 import { formatRFC3339WithOptions } from 'date-fns/fp';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-// import toast from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import useToken from '../../Hooks/UseToken';
 import { AuthContext } from '../Context/AuthProvider';
@@ -25,7 +25,7 @@ const SignUp = () => {
                 const user = result.user;
                 console.log(user);
                 alert('User Created Successfully.')
-                // toast('User Created Successfully.')
+                toast('User Created Successfully.')
                 const userInfo = {
                     displayName: data.name
                 }

@@ -1,12 +1,13 @@
 
 import { format } from 'date-fns';
 import React, { useContext } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import toast,{ Toaster } from 'react-hot-toast';
+// import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../Context/AuthProvider';
 
 const Booking = ({ data, date, setData, refetch }) => {
-    const { name, slots } = data
+    const { name, slots, price } = data
     const {user} = useContext(AuthContext)
     const dateTime = format(date, 'PP')
 
@@ -17,6 +18,7 @@ const Booking = ({ data, date, setData, refetch }) => {
         const email = form.email.value 
         const slot =form.slot.value
         const names = form.name.value
+        const prices = form.price.value
         const booking = {
             appointmentDate : dateTime,
             names,
@@ -24,7 +26,7 @@ const Booking = ({ data, date, setData, refetch }) => {
             phone,
             time: slot,
             serviceName: name,
-        
+            prices
 
         }
 
@@ -40,20 +42,9 @@ const Booking = ({ data, date, setData, refetch }) => {
             console.log(data)
             if (data.acknowledged === true) {
                 setData(null)
-                //  toast.success('booking confrimed')
-                alert('booking successfull')
+                toast.success('booking confirmed')
+                alert('booking success-full')
                  refetch()
-                // toast('Booking confrimed', {
-                //     position: "top-right",
-                //     autoClose: 5000,
-                //     hideProgressBar: false,
-                //     closeOnClick: true,
-                //     pauseOnHover: true,
-                //     draggable: true,
-                //     progress: undefined,
-                //     theme: "light",
-                //     });
-
             }
              else {
                 alert('you have already booked')
@@ -79,21 +70,10 @@ const Booking = ({ data, date, setData, refetch }) => {
                         </select> <br />
                         <input name='name' type="text" defaultValue={user?.displayName} disabled placeholder="Type here" className=" mt-3 input input-bordered w-full "  required /> <br />
                         <input name='email' defaultValue={user?.email} disabled type="email" placeholder="email" className=" mt-3 input input-bordered w-full " required /> <br />
+                        <input name='price' defaultValue={price} disabled type="text" placeholder="price" className=" mt-3 input input-bordered w-full " required /> <br />
                         <input name='phone' type="text" placeholder="phone" className=" mt-3 input input-bordered w-full " required /> <br />
                         <button className="btn btn-primary mt-3 w-full">Button</button>
-                        <ToastContainer></ToastContainer>
-                        {/* <ToastContainer
-                            position="top-right"
-                            autoClose={5000}
-                            hideProgressBar={false}
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                            theme="light"
-                            /> */}
+                       <Toaster/>
                     </form>
                 </div>
             </div>

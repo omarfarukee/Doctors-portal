@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
+// import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../Loader/Loader';
 
@@ -54,6 +55,7 @@ const AddDoctor = () => {
             .then(res => res.json())
             .then(result => {
                 console.log(result)
+                alert('added doctor successfully')
                 toast.success('added successfully')
                 navigate('/dashboard/manageDoctor')
             })
@@ -104,7 +106,6 @@ const AddDoctor = () => {
                     {errors.img && <p className='text-red-500'>{errors.img.message}</p>}
                 </div>
                 <input className='btn btn-accent w-full mt-4' value="Add Doctor" type="submit" />
-                <Toaster />
                 {/* {signUpError && <p className='text-red-600'>{signUpError}</p>} */}
             </form>
         </div>

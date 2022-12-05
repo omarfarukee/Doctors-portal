@@ -14,6 +14,7 @@ import AllUsers from './Layout/AllUsers/AllUsers';
 import AdminRoute from './Private/AminRout/AdminRoute';
 import AddDoctor from './Page/Dashboard/AddDoctor/AddDoctor';
 import ManageDoctor from './Page/Dashboard/ManageDoctor/ManageDoctor';
+import { Toaster } from 'react-hot-toast';
 function App() {
   const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ function App() {
       
         {
           path: '/home',
+          element:<Home></Home>,
+       },
+        {
+          path: '/',
           element:<Home></Home>,
        },
        {
